@@ -4,6 +4,19 @@ A near real-time, passive AI/ML threat detection pipeline for one-way (hardware 
 
 ---
 
+## System Architecture & Dashboard UI Screenshots
+
+### 🖼️ Unidirectional Diode & AI Enclave Architecture
+![System Architecture Diagram](docs/screenshots/architecture_diagram.png)
+
+### 🖥️ Real-Time 60 FPS Security Operations Center (SOC) Dashboard
+![Real-Time Dashboard UI](docs/screenshots/dashboard_ui.png)
+
+### 🚨 Real-Time Stream Threat Alert Feed & Forensic Chain
+![Threat Detection Feed](docs/screenshots/threat_detection.png)
+
+---
+
 ## Key Features & Constraints
 - **Strict Read-Only Ingest**: Passive monitoring with 0 return sockets or active probing.
 - **No Payload Decryption**: Evaluates TLS/QUIC ClientHello metadata (JA3/JA4 fingerprints) and packet length/timing sequences without decrypting payloads.
