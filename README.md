@@ -4,16 +4,10 @@ A near real-time, passive AI/ML threat detection pipeline for one-way (hardware 
 
 ---
 
-## System Architecture & Dashboard UI Screenshots
+## System Architecture Diagram
 
 ### 🖼️ Unidirectional Diode & AI Enclave Architecture
 ![System Architecture Diagram](docs/screenshots/architecture_diagram.png)
-
-### 🖥️ Real-Time 60 FPS Security Operations Center (SOC) Dashboard
-![Real-Time Dashboard UI](docs/screenshots/dashboard_ui.png)
-
-### 🚨 Real-Time Stream Threat Alert Feed & Forensic Chain
-![Threat Detection Feed](docs/screenshots/threat_detection.png)
 
 ---
 
