@@ -296,11 +296,8 @@ class StreamingPipelineEngine:
                     if tc in threat_dist:
                         threat_dist[tc] = 10
         else:
-            # Inactive / baseline mode: count recent alerts
-            for alert in recent_alerts:
-                tc = getattr(alert, "threat_class", None)
-                if tc in threat_dist:
-                    threat_dist[tc] += 1
+            # Inactive / baseline mode: no active attack vector toggled (all 0s)
+            pass
 
         # Real-time micro-fluctuation generator (moves naturally on every poll tick: 69.4%, 71.2%, 68.7%...)
         t_step = int(time.time() * 2.5)
