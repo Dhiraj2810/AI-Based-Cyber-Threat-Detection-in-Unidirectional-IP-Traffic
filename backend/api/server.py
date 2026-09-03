@@ -118,8 +118,9 @@ def get_alerts(
 
 @app.get("/api/telemetry")
 def get_telemetry():
+    active_attacks = list(generator.active_attacks)
     return {
-        "current": engine.get_current_telemetry(),
+        "current": engine.get_current_telemetry(active_attacks=active_attacks),
         "history": list(engine.telemetry_history)
     }
 
