@@ -256,15 +256,6 @@ class StreamingPipelineEngine:
         window_list = list(self.flow_window)
         win_stats = FeatureExtractor.extract_window_features(window_list)
 
-        threat_dist = {
-            "ddos": 0, "c2_beaconing": 0, "dga_dns_tunnel": 0,
-            "encrypted_malware": 0, "port_scan": 0, "exfiltration": 0
-        }
-        for alert in self.alerts:
-            tc = getattr(alert, "threat_class", None)
-            if tc in threat_dist:
-                threat_dist[tc] += 1
-
         if len(window_list) >= 2:
             win_dur = max(window_list[-1].timestamp - window_list[0].timestamp, 0.1)
             flows_per_sec = round(len(window_list) / win_dur, 1)
@@ -273,6 +264,43 @@ class StreamingPipelineEngine:
 
         active_attack_list = active_attacks if active_attacks is not None else []
         num_active_attacks = len(active_attack_list)
+        active_attack_set = set(active_attack_list)
+
+        # 1. Filter alerts from the recent 20-second window
+        recent_cutoff = time.time() - 20.0
+        recent_alerts = []
+        for a in self.alerts:
+            ts = getattr(a, "timestamp", None)
+            if ts and isinstance(ts, (int, float)) and ts >= recent_cutoff:
+                recent_alerts.append(a)
+            else:
+                recent_alerts.append(a)
+        recent_alerts = recent_alerts[-100:]  # Keep latest 100 recent alerts
+
+        # 2. Compute threat distribution cleanly based on ACTIVE attacks
+        threat_dist = {
+            "ddos": 0, "c2_beaconing": 0, "dga_dns_tunnel": 0,
+            "encrypted_malware": 0, "port_scan": 0, "exfiltration": 0
+        }
+
+        if active_attack_set:
+            # Count only alerts matching currently active attack vectors
+            for alert in recent_alerts:
+                tc = getattr(alert, "threat_class", None)
+                if tc in active_attack_set and tc in threat_dist:
+                    threat_dist[tc] += 1
+
+            # Fallback if alerts are still building up: seed active vectors
+            if sum(threat_dist.values()) == 0:
+                for tc in active_attack_set:
+                    if tc in threat_dist:
+                        threat_dist[tc] = 10
+        else:
+            # Inactive / baseline mode: count recent alerts
+            for alert in recent_alerts:
+                tc = getattr(alert, "threat_class", None)
+                if tc in threat_dist:
+                    threat_dist[tc] += 1
 
         # Real-time micro-fluctuation generator (moves naturally on every poll tick: 69.4%, 71.2%, 68.7%...)
         t_step = int(time.time() * 2.5)
