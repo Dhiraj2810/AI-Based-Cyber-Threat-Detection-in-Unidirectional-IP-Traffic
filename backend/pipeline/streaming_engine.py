@@ -33,9 +33,8 @@ class StreamingPipelineEngine:
         self.encrypted_malware_detector = EncryptedMalwareDetector()
         self.exfiltration_detector = ExfiltrationDetector()
 
-        # Telemetry metrics & persistent storage sync
-        stats = chain_manager.get_chain_stats()
-        self.total_processed_flows = stats.get("total_entries", 0) * 10
+        # Telemetry metrics & session flow tracking (starts from 0 on every new server run)
+        self.total_processed_flows = 0
         self.start_time = time.time()
         self.telemetry_history: deque = deque(maxlen=60)
 
@@ -47,19 +46,19 @@ class StreamingPipelineEngine:
         except Exception:
             pass
 
-        # Pre-populate 30 baseline telemetry points for instant chart rendering on load
+        # Pre-populate 30 baseline telemetry points starting from 0 for current session
         for i in range(30):
             self.telemetry_history.append({
                 "timestamp": time.time() - (30 - i),
                 "flows_per_sec": 120.0 + (i % 5) * 6.0,
-                "total_processed_flows": i * 15,
-                "processed_flows": i * 15,
+                "total_processed_flows": 0,
+                "processed_flows": 0,
                 "total_pps": 3500.0 + (i % 7) * 200.0,
                 "throughput_pps": 3500.0 + (i % 7) * 200.0,
                 "throughput_bps": 15000000.0,
                 "src_ip_entropy": 4.5 + (i % 6) * 0.35,
-                "total_alerts": 0,
-                "total_alerts_generated": 0,
+                "total_alerts": len(self.alerts),
+                "total_alerts_generated": len(self.alerts),
                 "threat_distribution": {"ddos": 0, "c2_beaconing": 0, "dga_dns_tunnel": 0, "encrypted_malware": 0, "port_scan": 0, "exfiltration": 0},
                 "active_threat_ratio": 0.0
             })
