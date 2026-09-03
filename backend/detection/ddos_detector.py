@@ -3,7 +3,7 @@ from backend.schema.alert_schema import StandardizedAlert, AlertEvidence, FlowRe
 from backend.features.feature_extractor import FeatureExtractor
 
 class DDoSDetector:
-    def __init__(self, pps_threshold: float = 10_000.0, bps_threshold: float = 150_000_000.0):
+    def __init__(self, pps_threshold: float = 25_000.0, bps_threshold: float = 750_000_000.0):
         self.pps_threshold = pps_threshold
         self.bps_threshold = bps_threshold
 
