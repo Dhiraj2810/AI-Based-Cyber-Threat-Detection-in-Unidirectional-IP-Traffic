@@ -193,7 +193,7 @@ export default function TelemetryCharts({ telemetryHistory, telemetryCurrent }) 
         {/* Operational Context Subtext */}
         <div className="flex flex-wrap items-center justify-between text-[11px] text-slate-400 font-mono gap-2">
           <span>
-            Status: { (telemetryCurrent?.active_attack_count || 0) === 0 ? "🟢 Baseline Normal Ingress (100% Clean Ingress Traffic)" : `🔴 Active Attack Mode (${telemetryCurrent?.active_attack_count} Vectors Active: ${telemetryCurrent?.attack_traffic_pct}% Threat Load)` }
+            Status: { (telemetryCurrent?.clean_traffic_pct ?? 100) === 100 ? "🟢 Baseline Normal Ingress (100% Clean Ingress Traffic)" : `🔴 Active Attack Mode (${telemetryCurrent?.active_attack_count || 1} Vectors Active: ${telemetryCurrent?.attack_traffic_pct}% Threat Load)` }
           </span>
           <span>
             Air-Gap Diode Protection: <span className="text-emerald-400 font-bold">PASSIVE READ-ONLY (100% SECURE)</span>
