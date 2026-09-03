@@ -38,13 +38,8 @@ class StreamingPipelineEngine:
         self.start_time = time.time()
         self.telemetry_history: deque = deque(maxlen=60)
 
-        # Pre-populate alerts deque from persistent SQLite database
-        try:
-            persisted_alerts = chain_manager.get_recent_alerts_from_db(100)
-            for a in reversed(persisted_alerts):
-                self.alerts.append(a)
-        except Exception:
-            pass
+        # Start live session with clean in-memory alert state
+        self.alerts = []
 
         # Pre-populate 30 baseline telemetry points starting from 0 for current session
         for i in range(30):
