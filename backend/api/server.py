@@ -60,10 +60,24 @@ is_benchmark_active = False
 
 async def stream_background_traffic():
     """Background task simulating continuous one-way traffic ingest (666+ FPS, ~2 Lakh flows in 5 min)."""
+    counter = 0
     while is_generator_running:
         if not is_benchmark_active:
             flows = generator.generate_flow_batch(count=100)
             engine.process_batch(flows)
+            counter += 1
+            if counter % 3 == 0:
+                try:
+                    active_attacks = list(generator.active_attacks)
+                    telem_data = engine.get_current_telemetry(active_attacks=active_attacks)
+                    msg_json = json.dumps({"type": "telemetry", "data": telem_data})
+                    for ws in list(connected_websockets):
+                        try:
+                            asyncio.create_task(ws.send_text(msg_json))
+                        except Exception:
+                            pass
+                except Exception:
+                    pass
         await asyncio.sleep(0.15)  # Continuous ingress stream
 
 async def periodic_auto_archive():

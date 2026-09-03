@@ -88,7 +88,7 @@ export default function App() {
       }
     }, 300);
 
-    const pollInterval = setInterval(fetchStatusAndAlerts, 10000);
+    const pollInterval = setInterval(fetchStatusAndAlerts, 1000);
 
     return () => {
       ws.close();
