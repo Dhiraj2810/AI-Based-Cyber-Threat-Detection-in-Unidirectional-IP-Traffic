@@ -266,7 +266,8 @@ async def websocket_alerts(websocket: WebSocket):
     try:
         while True:
             await asyncio.sleep(1.0)
-            telemetry = engine.get_current_telemetry()
+            active_attacks = list(generator.active_attacks)
+            telemetry = engine.get_current_telemetry(active_attacks=active_attacks)
             await websocket.send_json({"type": "telemetry", "data": telemetry})
     except Exception:
         pass
