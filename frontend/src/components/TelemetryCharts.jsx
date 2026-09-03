@@ -128,6 +128,7 @@ export default function TelemetryCharts({ telemetryHistory, telemetryCurrent }) 
                   outerRadius={65}
                   paddingAngle={4}
                   dataKey="value"
+                  isAnimationActive={false}
                 >
                   {pieData.map((entry, idx) => (
                     <Cell key={`cell-${idx}`} fill={entry.color} />

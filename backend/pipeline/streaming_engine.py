@@ -289,10 +289,10 @@ class StreamingPipelineEngine:
                     match_count = sum(1 for a in self.alerts if getattr(a, "threat_class", None) == tc)
                     threat_dist[tc] = max(match_count, 15)
         else:
-            threat_dist = {
-                "ddos": 0, "c2_beaconing": 0, "dga_dns_tunnel": 0,
-                "encrypted_malware": 0, "port_scan": 0, "exfiltration": 0
-            }
+            for a in self.alerts:
+                tc = getattr(a, "threat_class", None)
+                if tc in threat_dist:
+                    threat_dist[tc] += 1
 
         # Real-time micro-fluctuation generator (moves naturally on every poll tick: 69.4%, 71.2%, 68.7%...)
         t_step = int(time.time() * 2.5)
