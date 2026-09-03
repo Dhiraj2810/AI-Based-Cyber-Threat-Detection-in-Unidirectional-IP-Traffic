@@ -160,12 +160,12 @@ export default function TelemetryCharts({ telemetryHistory, telemetryCurrent }) 
           <div className="flex flex-wrap items-center gap-3 text-xs font-mono">
             <span className="flex items-center gap-1.5 text-emerald-400 font-bold">
               <span className="w-2.5 h-2.5 rounded-full bg-emerald-400 inline-block animate-ping"></span>
-              Clean Traffic: <span className="underline">{telemetryCurrent?.clean_flow_count ?? 616} flows</span> ({telemetryCurrent?.clean_traffic_pct ?? 70}%)
+              Clean Traffic: <span className="underline">{telemetryCurrent?.clean_flow_count ?? 880} flows</span> ({telemetryCurrent?.clean_traffic_pct ?? 100}%)
             </span>
             <span className="text-slate-600">|</span>
             <span className="flex items-center gap-1.5 text-rose-400 font-bold">
               <span className="w-2.5 h-2.5 rounded-full bg-rose-500 inline-block"></span>
-              Threat Traffic: <span className="underline">{telemetryCurrent?.threat_flow_count ?? 264} flows</span> ({telemetryCurrent?.attack_traffic_pct ?? 30}%)
+              Threat Traffic: <span className="underline">{telemetryCurrent?.threat_flow_count ?? 0} flows</span> ({telemetryCurrent?.attack_traffic_pct ?? 0}%)
             </span>
             <span className="text-slate-600">|</span>
             <span className="text-amber-400 font-bold">
@@ -178,22 +178,22 @@ export default function TelemetryCharts({ telemetryHistory, telemetryCurrent }) 
         <div className="w-full bg-slate-800 rounded-full h-5 overflow-hidden flex p-0.5 border border-slate-700 shadow-inner">
           <div
             className="bg-gradient-to-r from-emerald-500 to-teal-400 h-full rounded-l-full transition-all duration-300 flex items-center justify-center text-[11px] font-bold text-slate-950 px-2"
-            style={{ width: `${telemetryCurrent?.clean_traffic_pct ?? 70}%` }}
+            style={{ width: `${telemetryCurrent?.clean_traffic_pct ?? 100}%` }}
           >
-            {(telemetryCurrent?.clean_traffic_pct ?? 70) >= 15 && `${telemetryCurrent?.clean_flow_count ?? 616} Flows (${telemetryCurrent?.clean_traffic_pct ?? 70}%) CLEAN`}
+            {(telemetryCurrent?.clean_traffic_pct ?? 100) >= 15 && `${telemetryCurrent?.clean_flow_count ?? 880} Flows (${telemetryCurrent?.clean_traffic_pct ?? 100}%) CLEAN`}
           </div>
           <div
             className="bg-gradient-to-r from-rose-500 to-red-600 h-full rounded-r-full transition-all duration-300 flex items-center justify-center text-[11px] font-bold text-white px-2"
-            style={{ width: `${telemetryCurrent?.attack_traffic_pct ?? 30}%` }}
+            style={{ width: `${telemetryCurrent?.attack_traffic_pct ?? 0}%` }}
           >
-            {(telemetryCurrent?.attack_traffic_pct ?? 30) >= 15 && `${telemetryCurrent?.threat_flow_count ?? 264} Flows (${telemetryCurrent?.attack_traffic_pct ?? 30}%) THREAT`}
+            {(telemetryCurrent?.attack_traffic_pct ?? 0) >= 15 && `${telemetryCurrent?.threat_flow_count ?? 0} Flows (${telemetryCurrent?.attack_traffic_pct ?? 0}%) THREAT`}
           </div>
         </div>
 
         {/* Operational Context Subtext */}
         <div className="flex flex-wrap items-center justify-between text-[11px] text-slate-400 font-mono gap-2">
           <span>
-            Status: { (telemetryCurrent?.active_attack_count || 0) === 0 ? "🟢 Baseline Normal Ingress (70% Clean / 30% Noise)" : `🔴 Active Attack Mode (${telemetryCurrent?.active_attack_count} Vectors Active: ${telemetryCurrent?.attack_traffic_pct}% Threat Load)` }
+            Status: { (telemetryCurrent?.active_attack_count || 0) === 0 ? "🟢 Baseline Normal Ingress (100% Clean Ingress Traffic)" : `🔴 Active Attack Mode (${telemetryCurrent?.active_attack_count} Vectors Active: ${telemetryCurrent?.attack_traffic_pct}% Threat Load)` }
           </span>
           <span>
             Air-Gap Diode Protection: <span className="text-emerald-400 font-bold">PASSIVE READ-ONLY (100% SECURE)</span>
