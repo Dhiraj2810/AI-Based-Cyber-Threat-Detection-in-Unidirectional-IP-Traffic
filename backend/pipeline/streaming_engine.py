@@ -301,17 +301,11 @@ class StreamingPipelineEngine:
             clean_flow_count = total_window_flows
             threat_flow_count = 0
         else:
-            if num_active_attacks == 1:
-                clean_pct = round(35.0 + sine_offset, 1)
-                clean_pct = max(26.0, min(44.0, clean_pct))
-            elif num_active_attacks <= 3:
-                clean_pct = round(22.0 + sine_offset, 1)
-                clean_pct = max(15.0, min(29.0, clean_pct))
-            else:  # 4 to 6 active attacks
-                clean_pct = round(10.0 + sine_offset * 0.6, 1)
-                clean_pct = max(5.0, min(16.0, clean_pct))
+            # Driven by generator flow composition: 70% attack flows / 30% benign flows under active attacks
+            attack_pct = round(70.0 + sine_offset, 1)
+            attack_pct = max(60.0, min(80.0, attack_pct))
+            clean_pct = round(100.0 - attack_pct, 1)
 
-            attack_pct = round(100.0 - clean_pct, 1)
             clean_flow_count = int(total_window_flows * (clean_pct / 100.0))
             threat_flow_count = max(total_window_flows - clean_flow_count, 0)
 
