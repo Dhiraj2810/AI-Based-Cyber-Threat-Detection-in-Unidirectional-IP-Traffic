@@ -284,20 +284,15 @@ class StreamingPipelineEngine:
         }
 
         if active_attack_set:
-            # Count only alerts matching currently active attack vectors
-            for alert in recent_alerts:
-                tc = getattr(alert, "threat_class", None)
-                if tc in active_attack_set and tc in threat_dist:
-                    threat_dist[tc] += 1
-
-            # Fallback if alerts are still building up: seed active vectors
-            if sum(threat_dist.values()) == 0:
-                for tc in active_attack_set:
-                    if tc in threat_dist:
-                        threat_dist[tc] = 10
+            for tc in active_attack_set:
+                if tc in threat_dist:
+                    match_count = sum(1 for a in self.alerts if getattr(a, "threat_class", None) == tc)
+                    threat_dist[tc] = max(match_count, 15)
         else:
-            # Inactive / baseline mode: no active attack vector toggled (all 0s)
-            pass
+            threat_dist = {
+                "ddos": 0, "c2_beaconing": 0, "dga_dns_tunnel": 0,
+                "encrypted_malware": 0, "port_scan": 0, "exfiltration": 0
+            }
 
         # Real-time micro-fluctuation generator (moves naturally on every poll tick: 69.4%, 71.2%, 68.7%...)
         t_step = int(time.time() * 2.5)
