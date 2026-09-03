@@ -109,7 +109,7 @@ export default function TelemetryCharts({ telemetryHistory, telemetryCurrent }) 
             Detected Threat Class Breakdown
           </h3>
           <span className="text-xs font-bold text-amber-400 font-mono">
-            {telemetryCurrent?.total_alerts_generated || 0} Alerts
+            {pieData.length > 0 ? `${telemetryCurrent?.total_alerts_generated || 0} Alerts` : "0 Active Alerts"}
           </span>
         </div>
         <p className="text-[10px] text-slate-400 mb-3">
