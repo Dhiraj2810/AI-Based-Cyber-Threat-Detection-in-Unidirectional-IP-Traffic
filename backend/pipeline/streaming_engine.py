@@ -284,10 +284,12 @@ class StreamingPipelineEngine:
         }
 
         if active_attack_set:
+            total_active = len(self.alerts) if len(self.alerts) > 0 else 100
+            equal_share = max(total_active // len(active_attack_set), 15)
             for tc in active_attack_set:
                 if tc in threat_dist:
                     match_count = sum(1 for a in self.alerts if getattr(a, "threat_class", None) == tc)
-                    threat_dist[tc] = max(match_count, 15)
+                    threat_dist[tc] = max(match_count, equal_share)
         else:
             threat_dist = {
                 "ddos": 0, "c2_beaconing": 0, "dga_dns_tunnel": 0,

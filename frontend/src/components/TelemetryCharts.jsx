@@ -135,6 +135,7 @@ export default function TelemetryCharts({ telemetryHistory, telemetryCurrent }) 
                   ))}
                 </Pie>
                 <Tooltip
+                  formatter={(value, name) => [`${value} Alerts`, name]}
                   contentStyle={{ backgroundColor: '#0f172a', borderColor: '#334155', borderRadius: '8px', fontSize: '12px' }}
                 />
               </PieChart>
