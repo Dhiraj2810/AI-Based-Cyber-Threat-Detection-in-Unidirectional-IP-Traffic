@@ -295,6 +295,8 @@ class StreamingPipelineEngine:
         t_step = int(time.time() * 2.5)
         sine_offset = round(math.sin(t_step * 0.8) * 3.2 + math.cos(t_step * 0.45) * 1.6, 1)
 
+        total_window_flows = int(flows_per_sec) if flows_per_sec > 0 else 880
+
         if num_active_attacks == 0:
             clean_pct = 100.0
             attack_pct = 0.0
