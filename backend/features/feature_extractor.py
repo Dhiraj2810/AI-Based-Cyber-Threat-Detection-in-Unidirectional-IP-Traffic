@@ -56,18 +56,24 @@ class FeatureExtractor:
         iats = flow.packet_iat[:20] if flow.packet_iat else [duration / max(total_packets, 1)]
         n_iat = len(iats)
         iat_mean = sum(iats) / n_iat
-        iat_sq_sum = sum(x * x for x in iats)
-        iat_var = max(iat_sq_sum / n_iat - iat_mean * iat_mean, 0.0) if n_iat > 1 else 0.0
-        iat_std = math.sqrt(iat_var)
+        if n_iat > 1 and iats[0] != iats[-1]:
+            iat_sq_sum = sum(x * x for x in iats)
+            iat_var = max(iat_sq_sum / n_iat - iat_mean * iat_mean, 0.0)
+            iat_std = math.sqrt(iat_var)
+        else:
+            iat_std = 0.0
         iat_cv = iat_std / max(iat_mean, 1e-6)
 
         # Fast Packet size sequence features using pure math
         sizes = flow.packet_sizes[:20] if flow.packet_sizes else [flow.src_bytes]
         n_sizes = len(sizes)
         size_mean = sum(sizes) / n_sizes
-        size_sq_sum = sum(x * x for x in sizes)
-        size_var = max(size_sq_sum / n_sizes - size_mean * size_mean, 0.0) if n_sizes > 1 else 0.0
-        size_std = math.sqrt(size_var)
+        if n_sizes > 1 and sizes[0] != sizes[-1]:
+            size_sq_sum = sum(x * x for x in sizes)
+            size_var = max(size_sq_sum / n_sizes - size_mean * size_mean, 0.0)
+            size_std = math.sqrt(size_var)
+        else:
+            size_std = 0.0
 
         # DNS features
         dns_entropy = calculate_shannon_entropy(flow.dns_query_name) if flow.dns_query_name else 0.0

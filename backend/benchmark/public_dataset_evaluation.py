@@ -11,7 +11,7 @@ sys.path.insert(0, os.path.abspath(os.path.join(os.path.dirname(__file__), "../.
 from backend.schema.alert_schema import FlowRecord
 from backend.pipeline.streaming_engine import StreamingPipelineEngine
 
-CLASSES = ["benign", "ddos", "c2_beaconing", "dga_dns_tunnel", "encrypted_malware", "port_scan", "exfiltration"]
+CLASSES = ["benign", "ddos", "c2_beaconing", "dga_dns_tunnel", "encrypted_malware", "port_scan", "exfiltration", "encrypted_c2_beaconing"]
 
 def generate_unsw_cicids_dataset(samples_per_class: int = 150) -> List[Tuple[FlowRecord, str]]:
     """Simulates real public dataset flows formatted as UNSW-NB15 / CICIDS2017 records."""

@@ -1,0 +1,193 @@
+{
+  "timestamp": "2026-09-05T16:19:22.087961",
+  "resource_before": {
+    "cpu_percent": 19.7,
+    "memory_percent": 77.4,
+    "memory_available_mb": 3641.34,
+    "total_processes": 327,
+    "python_process_count": 4,
+    "python_processes": [
+      {
+        "pid": 944,
+        "cpu_percent": 0.0,
+        "name": "python.exe",
+        "memory_info": [
+          96661504,
+          81637376,
+          26674,
+          96985088,
+          96661504,
+          213872,
+          213328,
+          45944,
+          30064,
+          81637376,
+          81969152,
+          81637376
+        ]
+      },
+      {
+        "pid": 10468,
+        "cpu_percent": 0.0,
+        "name": "python.exe",
+        "memory_info": [
+          38256640,
+          23465984,
+          10318,
+          38256640,
+          38256640,
+          210440,
+          202152,
+          204032,
+          19168,
+          23465984,
+          23605248,
+          23465984
+        ]
+      },
+      {
+        "pid": 14180,
+        "cpu_percent": 0.0,
+        "name": "python.exe",
+        "memory_info": [
+          36798464,
+          27013120,
+          15000,
+          36798464,
+          36798464,
+          197632,
+          197632,
+          20360,
+          20120,
+          27013120,
+          27013120,
+          27013120
+        ]
+      },
+      {
+        "pid": 24580,
+        "cpu_percent": 0.0,
+        "name": "python.exe",
+        "memory_info": [
+          182763520,
+          880627712,
+          76059,
+          182763520,
+          182763520,
+          563464,
+          563464,
+          69080,
+          68856,
+          880627712,
+          880627712,
+          880627712
+        ]
+      }
+    ]
+  },
+  "db_before": {
+    "live_db_entries": 716,
+    "archive_db_entries": 251514,
+    "total_entries": 252230
+  },
+  "bench_1": {
+    "status": "SUCCESS",
+    "flows_per_second": 78391.59,
+    "execution_time_seconds": 0.1276,
+    "total_http_elapsed": 0.5242,
+    "alerts_detected": 0
+  },
+  "bench_2": {
+    "status": "SUCCESS",
+    "flows_per_second": 84911.48,
+    "execution_time_seconds": 0.1178,
+    "total_http_elapsed": 0.4581,
+    "alerts_detected": 0
+  },
+  "bench_bg_active": {
+    "status": "SUCCESS",
+    "flows_per_second": 86869.88,
+    "execution_time_seconds": 0.1151,
+    "total_http_elapsed": 0.5362,
+    "alerts_detected": 0
+  },
+  "consecutive_runs": [
+    [
+      1,
+      85158.93,
+      0.1174,
+      716,
+      14.1
+    ],
+    [
+      2,
+      81232.92,
+      0.1231,
+      716,
+      14.7
+    ],
+    [
+      3,
+      60191.43,
+      0.1661,
+      716,
+      22.6
+    ],
+    [
+      4,
+      86054.89,
+      0.1162,
+      716,
+      26.0
+    ],
+    [
+      5,
+      85195.42,
+      0.1174,
+      716,
+      22.6
+    ]
+  ],
+  "file_timestamps": [
+    [
+      "backend\\benchmark\\public_dataset_evaluation.py",
+      "2026-09-04 02:41:17"
+    ],
+    [
+      "backend\\pipeline\\streaming_engine.py",
+      "2026-09-04 01:44:34"
+    ],
+    [
+      "backend\\detection\\ddos_detector.py",
+      "2026-09-04 01:12:50"
+    ],
+    [
+      "backend\\api\\server.py",
+      "2026-09-04 00:34:02"
+    ],
+    [
+      "backend\\benchmark\\inspect_db.py",
+      "2026-09-03 23:32:49"
+    ],
+    [
+      "backend\\forensics\\chain_of_custody.py",
+      "2026-09-01 17:50:50"
+    ],
+    [
+      "backend\\benchmark\\verify_chain_scale_and_throughput.py",
+      "2026-09-01 17:44:26"
+    ],
+    [
+      "backend\\benchmark\\throughput_benchmark.py",
+      "2026-09-01 17:01:36"
+    ],
+    [
+      "backend\\benchmark\\verify_chain_archiving.py",
+      "2026-09-01 16:32:37"
+    ],
+    [
+      "backend\\detection\\exfiltration_detector.py",
+      "2026-08-30 17:32:00"
+    ]
+  ]
+}

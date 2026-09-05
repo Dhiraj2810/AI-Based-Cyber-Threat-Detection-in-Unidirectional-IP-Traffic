@@ -41,7 +41,9 @@ class BeaconingDetector:
         if features_list is None:
             features_list = [FeatureExtractor.extract_flow_features(f) for f in flows]
 
-        alerts: List[Optional[StandardizedAlert]] = [None] * len(flows)
+        # Fast statistical pre-filter: skip expensive evaluation if no flow in batch has packets >= 4 and iat_cv < 0.30
+        if not any(f.get("total_packets", 0) >= 4 and f.get("iat_cv", 1.0) < 0.30 for f in features_list):
+            return []
 
         ml_indices = []
         ml_feature_rows = []

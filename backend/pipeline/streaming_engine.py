@@ -247,15 +247,21 @@ class StreamingPipelineEngine:
 
     def get_current_telemetry(self, active_attacks: Optional[List[str]] = None) -> Dict[str, Any]:
         import math
-        elapsed = max(time.time() - self.start_time, 1.0)
+        curr_t = time.time()
         window_list = list(self.flow_window)
         win_stats = FeatureExtractor.extract_window_features(window_list)
 
-        if len(window_list) >= 2:
-            win_dur = max(window_list[-1].timestamp - window_list[0].timestamp, 0.1)
-            flows_per_sec = round(len(window_list) / win_dur, 1)
+        if not hasattr(self, "_telemetry_window"):
+            self._telemetry_window = deque(maxlen=5)
+
+        self._telemetry_window.append((curr_t, self.total_processed_flows))
+
+        if len(self._telemetry_window) >= 2:
+            dt = max(self._telemetry_window[-1][0] - self._telemetry_window[0][0], 0.01)
+            df = self._telemetry_window[-1][1] - self._telemetry_window[0][1]
+            flows_per_sec = round(df / dt, 1)
         else:
-            flows_per_sec = round(self.total_processed_flows / elapsed, 1)
+            flows_per_sec = round(self.total_processed_flows / max(curr_t - self.start_time, 0.1), 1)
 
         active_attack_list = active_attacks if active_attacks is not None else []
         num_active_attacks = len(active_attack_list)

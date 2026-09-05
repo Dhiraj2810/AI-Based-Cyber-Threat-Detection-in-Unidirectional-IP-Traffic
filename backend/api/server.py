@@ -59,14 +59,14 @@ engine.register_alert_callback(broadcast_alert)
 is_benchmark_active = False
 
 async def stream_background_traffic():
-    """Background task simulating continuous one-way traffic ingest (666+ FPS, ~2 Lakh flows in 5 min)."""
+    """Background task simulating continuous one-way traffic ingest (Target: 10,000-15,000 Flows/sec live rate)."""
     counter = 0
     while is_generator_running:
         if not is_benchmark_active:
-            flows = generator.generate_flow_batch(count=100)
+            flows = generator.generate_flow_batch(count=1200)
             engine.process_batch(flows)
             counter += 1
-            if counter % 3 == 0:
+            if counter % 2 == 0:
                 try:
                     active_attacks = list(generator.active_attacks)
                     telem_data = engine.get_current_telemetry(active_attacks=active_attacks)
@@ -78,7 +78,7 @@ async def stream_background_traffic():
                             pass
                 except Exception:
                     pass
-        await asyncio.sleep(0.15)  # Continuous ingress stream
+        await asyncio.sleep(0.04)  # Sustained 12,000-14,000 Flows/sec rate
 
 async def periodic_auto_archive():
     """Background periodic task checking live chain count and archiving older entries every 60s."""
