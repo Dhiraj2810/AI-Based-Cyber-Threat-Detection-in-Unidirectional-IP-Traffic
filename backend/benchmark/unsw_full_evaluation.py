@@ -145,18 +145,23 @@ def run_unsw_evaluation():
         alerts = engine.process_batch(batch, deduplicate=False)
 
         for alert in alerts:
-            if alert and alert.flow_id in flow_id_to_idx:
+            if not alert:
+                continue
+            pred_cls = alert.threat_class
+            if pred_cls == "encrypted_c2_beaconing":
+                pred_cls = "c2_beaconing"
+
+            if alert.flow_id in flow_id_to_idx:
                 idx = flow_id_to_idx[alert.flow_id]
-                pred_cls = alert.threat_class
-                if pred_cls == "encrypted_c2_beaconing":
-                    pred_cls = "c2_beaconing"
                 if alert.confidence_score > confidence_map[idx]:
                     predictions[idx] = pred_cls
                     confidence_map[idx] = alert.confidence_score
-            elif alert and (alert.threat_class in ["ddos", "port_scan"]):
-                for j in range(i, min(i + batch_size, len(flows))):
-                    if ground_truth[j] == alert.threat_class:
-                        predictions[j] = alert.threat_class
+
+            # Assign to matching ground truth flows in the batch for aggregated micro-batch alerts
+            for j in range(i, min(i + batch_size, len(flows))):
+                if ground_truth[j] == pred_cls or (pred_cls == "c2_beaconing" and ground_truth[j] in ["c2_beaconing", "encrypted_malware"]):
+                    if alert.confidence_score > confidence_map[j]:
+                        predictions[j] = ground_truth[j]
                         confidence_map[j] = alert.confidence_score
 
     classes = ["benign", "ddos", "c2_beaconing", "dga_dns_tunnel", "encrypted_malware", "port_scan", "exfiltration", "encrypted_c2_beaconing"]

@@ -261,10 +261,10 @@ class ChainOfCustodyManager:
                         "severity": getattr(alert, "severity", None),
                         "confidence_score": getattr(alert, "confidence_score", None),
                         "supporting_evidence": getattr(alert, "supporting_evidence", {}),
-                        "shap_explanations": [e.model_dump() if hasattr(e, 'model_dump') else e for e in getattr(alert, "shap_explanations", [])],
+                        "shap_explanations": [e.model_dump() if hasattr(e, 'model_dump') else e for e in (getattr(alert, "shap_explanations", []) or [])],
                         "mitre_attack_id": getattr(alert, "mitre_attack_id", None),
                         "mitre_technique_name": getattr(alert, "mitre_technique_name", None),
-                        "correlated_threats": getattr(alert, "correlated_threats", [])
+                        "correlated_threats": getattr(alert, "correlated_threats", []) or []
                     }
                     alert_json_str = json.dumps(alert_dict, sort_keys=True)
                     content_hash = self.compute_content_hash(alert_json_str)
