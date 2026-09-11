@@ -19,7 +19,9 @@ export default function Header({ status, telemetry }) {
           <div>
             <div className="flex items-center gap-2.5 flex-wrap sm:flex-nowrap">
               <h1 className="text-lg sm:text-xl font-bold tracking-wider text-slate-100 uppercase whitespace-nowrap">
-                Passive-Diode AI Enclave
+                <span className="text-cyan-400 font-extrabold">VajraRaksha</span>
+                <span className="text-slate-400 mx-2 font-normal">:</span>
+                <span>Passive-Diode AI Enclave</span>
               </h1>
               <span className="px-2.5 py-0.5 text-[11px] font-semibold rounded-full bg-cyan-500/10 text-cyan-400 border border-cyan-500/30 whitespace-nowrap shrink-0">
                 v1.0 REAL-TIME

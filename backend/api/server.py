@@ -17,8 +17,8 @@ from backend.benchmark.throughput_benchmark import run_throughput_benchmark
 from backend.forensics.chain_of_custody import chain_manager
 
 app = FastAPI(
-    title="Unidirectional AI Cyber Threat Detection Enclave",
-    description="Passive one-way IP traffic threat detection API",
+    title="VajraRaksha: Unidirectional AI Cyber Threat Detection Enclave",
+    description="VajraRaksha - Passive one-way IP traffic threat detection API",
     version="1.0.0"
 )
 

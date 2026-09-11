@@ -1,4 +1,4 @@
-# Comprehensive Technical Documentation: AI-Based Cyber Threat Detection in Unidirectional IP Traffic
+# Comprehensive Technical Documentation: VajraRaksha - AI-Based Cyber Threat Detection in Unidirectional IP Traffic
 
 ---
 
@@ -13,7 +13,7 @@ Because the monitoring enclave sits behind a one-way data diode:
 - It **cannot perform live external threat-intel API lookups** or decrypt TLS/QUIC session payloads.
 
 ### The Solution
-This project implements an **end-to-end, real-time AI/ML cyber threat detection pipeline** designed specifically for unidirectional IP traffic enclaves. The engine ingests one-way packet streams / flow records, extracts multi-dimensional windowed features, evaluates six specialized threat detection modules (statistical + LightGBM + Isolation Forest ML), formats detections into a standardized JSON alert schema with SHAP supporting evidence, and visualizes live security telemetry on a dark-mode React SOC dashboard.
+**VajraRaksha** implements an **end-to-end, real-time AI/ML cyber threat detection pipeline** designed specifically for unidirectional IP traffic enclaves. The engine ingests one-way packet streams / flow records, extracts multi-dimensional windowed features, evaluates six specialized threat detection modules (statistical + LightGBM + Isolation Forest ML), formats detections into a standardized JSON alert schema with SHAP supporting evidence, and visualizes live security telemetry on a dark-mode React SOC dashboard.
 
 ---
 

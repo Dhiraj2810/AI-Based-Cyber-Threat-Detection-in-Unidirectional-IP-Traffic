@@ -1,6 +1,6 @@
-# AI-Based Detection of Cyber Threats in Unidirectional IP Traffic
+# VajraRaksha: AI-Based Detection of Cyber Threats in Unidirectional IP Traffic
 
-A near real-time, passive AI/ML threat detection pipeline for one-way (hardware data diode / mirror tap) IP traffic enclaves. The system continuously monitors network flow streams, computes windowed statistical and ML features across 6 threat categories without returning any response or decrypting session content, formats standardized JSON alerts with SHAP supporting evidence, and visualizes live telemetry on an interactive React dashboard.
+**VajraRaksha** is a near real-time, passive AI/ML threat detection pipeline for one-way (hardware data diode / mirror tap) IP traffic enclaves. The system continuously monitors network flow streams, computes windowed statistical and ML features across 6 threat categories without returning any response or decrypting session content, formats standardized JSON alerts with SHAP supporting evidence, and visualizes live telemetry on an interactive React dashboard.
 
 ---
 

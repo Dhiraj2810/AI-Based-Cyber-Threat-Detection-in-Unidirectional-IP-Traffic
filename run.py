@@ -5,7 +5,7 @@ import uvicorn
 
 def main():
     print("=" * 70)
-    print("  AI-BASED CYBER THREAT DETECTION IN UNIDIRECTIONAL IP TRAFFIC")
+    print("  VAJRARAKSHA: AI-BASED CYBER THREAT DETECTION IN UNIDIRECTIONAL IP TRAFFIC")
     print("=" * 70)
 
     project_root = os.path.dirname(os.path.abspath(__file__))
@@ -36,7 +36,7 @@ def main():
         print("[+] React frontend static distribution bundle verified in frontend/dist/")
 
     # 3. Launch Server
-    print("\n[+] Starting Unidirectional AI Enclave Server on http://localhost:8000 ...")
+    print("\n[+] Starting VajraRaksha Unidirectional AI Enclave Server on http://localhost:8000 ...")
     print("    - Dashboard UI:  http://localhost:8000")
     print("    - API Status:    http://localhost:8000/api/status")
     print("    - REST Alerts:   http://localhost:8000/api/alerts")
